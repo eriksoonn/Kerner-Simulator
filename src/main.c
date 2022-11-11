@@ -22,24 +22,37 @@ int main(int argc, char* const argv[])
 
     /* Read user given parameters */
     int options;
-    while ((options = getopt(argc, argv, "c:r:t:")) != -1) 
-    {
-        switch (options)
-        {
-        case 'c':
-            cpus = atoi(optarg);
-            break;
-        case 'r':
-            cores = atoi(optarg);
-            break;
-        case 't':
-            threads = atoi(optarg);
-            break;
-        
-        default:
-            break;
+    while ((options = getopt(argc, argv, "c:r:t:a:b:")) != -1) {
+        switch (options) {
+            case 'c':
+                cpus = atoi(optarg);
+                break;
+            case 'r':
+                cores = atoi(optarg);
+                break;
+            case 't':
+                threads = atoi(optarg);
+                break;
+            case 'a':
+                proccess_generator_period = atoi(optarg);
+                break;
+            case 'b':
+                scheduler_period = atoi(optarg);
+                break;
+            default:
+                break;
         }
     }
+
+    /* Show options to terminal */
+    printf("---- Program options -----\n");
+    printf("CPUs:    %d \n", cpus);
+    printf("cores:   %d \n", cores);
+    printf("threads: %d \n", threads);
+    printf("\n");
+    printf("Timer --> scheduler:   %d \n", scheduler_period);
+    printf("Timer --> process gen: %d \n", proccess_generator_period);
+    printf("\n");
 
     /* Initialize semaphores */
     sem_init(&scheduler_sem, 0, 0);
